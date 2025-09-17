@@ -487,7 +487,7 @@
             display: none;
         }
         
-        .netlify-form-success {
+        .formspree-form-success {
             display: none;
             background-color: #d4edda;
             color: #155724;
@@ -495,6 +495,10 @@
             border-radius: 5px;
             margin: 20px 0;
             border-left: 4px solid #c3e6cb;
+        }
+        
+        .hidden {
+            display: none;
         }
         
         @media (max-width: 768px) {
@@ -543,31 +547,14 @@
             <p><strong><i class="fas fa-exclamation-circle"></i> Disclaimer:</strong> This calculator provides only an estimate and should not be considered legal advice. Actual compensation may vary based on your unique circumstances, jurisdiction, liable parties, and legal representation. Many mesothelioma cases result in settlements between $1 million and $2.4 million. We partner with a network of trusted mesothelioma law firms and may receive a referral fee if you choose to work with one of our partners. Information submitted through this form is encrypted and securely transmitted.</p>
         </div>
         
-        <!-- Netlify Form Success Message -->
-        <div class="netlify-form-success" id="form-success">
+        <!-- Formspree Form Success Message -->
+        <div class="formspree-form-success" id="form-success">
             <strong><i class="fas fa-check-circle"></i> Thank you!</strong> Your information has been submitted successfully. We'll be in touch shortly to discuss your case.
         </div>
         
         <div class="calculator-container">
-            <!-- Netlify Form Wrapper -->
-            <form name="mesothelioma-compensation" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="calculator" id="netlify-form">
-                <!-- Netlify's bot spam protection -->
-                <p class="hidden">
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                </p>
-                
-                <!-- Hidden fields to capture calculated values and UTM parameters -->
-                <input type="hidden" name="estimated-compensation" id="estimated-compensation">
-                <input type="hidden" name="medical-compensation" id="medical-compensation-hidden">
-                <input type="hidden" name="income-compensation" id="income-compensation-hidden">
-                <input type="hidden" name="pain-compensation" id="pain-compensation-hidden">
-                <input type="hidden" name="utm_source" id="utm_source">
-                <input type="hidden" name="utm_campaign" id="utm_campaign">
-                <input type="hidden" name="utm_term" id="utm_term">
-                <input type="hidden" name="gclid" id="gclid">
-                <input type="hidden" name="landing_page" id="landing_page">
-                <input type="hidden" name="user_agent" id="user_agent">
-                
+            <!-- Formspree Form Wrapper -->
+            <form action="https://formspree.io/f/mrbawjqk" method="POST" class="calculator" id="formspree-form">
                 <div class="progress-bar">
                     <div class="progress" id="progress"></div>
                 </div>
@@ -729,9 +716,9 @@
                         </div>
                         
                         <div class="partner-logos">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI1Ii8+PHRleHQgeD0iNjAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMzMzMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxhd34gRmlybSAjMTwvdGV4dD48L3N2Zz4=" alt="Law Firm 1" class="partner-logo">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI1Ii8+PHRleHQgeD0iNjAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMzMzMiIHRleHQtYW5jaG9y=" alt="Law Firm 2" class="partner-logo">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw=" alt="Law Firm 3" class="partner-logo">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 1" class="partner-logo">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 2" class="partner-logo">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 3" class="partner-logo">
                         </div>
                         
                         <div class="testimonial">
@@ -846,27 +833,12 @@
                 landing_page: window.location.href
             };
             
-            // Set hidden field values
-            document.getElementById('utm_source').value = utmData.utm_source;
-            document.getElementById('utm_campaign').value = utmData.utm_campaign;
-            document.getElementById('utm_term').value = utmData.utm_term;
-            document.getElementById('gclid').value = utmData.gclid;
-            document.getElementById('landing_page').value = utmData.landing_page;
-            document.getElementById('user_agent').value = utmData.user_agent;
-            
             // Track pageview (for GTM)
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'page_view', {
                     page_title: 'Mesothelioma Compensation Calculator',
                     page_location: window.location.href
                 });
-            }
-            
-            // Check if form was submitted (Netlify adds query parameter on success)
-            const urlParamsCheck = new URLSearchParams(window.location.search);
-            if (urlParamsCheck.get('submitted') === 'true') {
-                document.getElementById('form-success').style.display = 'block';
-                document.getElementById('netlify-form').style.display = 'none';
             }
         });
         
@@ -1019,12 +991,6 @@
             document.getElementById('income-compensation').textContent = incomeFormatted;
             document.getElementById('pain-compensation').textContent = painFormatted;
             
-            // Set hidden field values for form submission
-            document.getElementById('estimated-compensation').value = formattedAmount;
-            document.getElementById('medical-compensation-hidden').value = medicalComp;
-            document.getElementById('income-compensation-hidden').value = incomeComp;
-            document.getElementById('pain-compensation-hidden').value = nonEconomicDamages;
-            
             // Render chart
             renderChart(medicalComp, incomeComp, nonEconomicDamages);
             
@@ -1137,7 +1103,7 @@
         });
         
         // Handle form submission
-        document.getElementById('netlify-form').addEventListener('submit', function(e) {
+        document.getElementById('formspree-form').addEventListener('submit', function(e) {
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value;
             
@@ -1154,6 +1120,11 @@
                     value: 1
                 });
             }
+            
+            // Show success message after form submission
+            setTimeout(function() {
+                document.getElementById('form-success').style.display = 'block';
+            }, 1000);
         });
     </script>
     
