@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="mcc.png" type="image/png" sizes="50x50">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesothelioma Compensation Calculator - Free Estimate Tool</title>
+    <meta name="description" content="Estimate your mesothelioma compensation with our free calculator. Get a personalized claim value and connect with top attorneys for asbestos lawsuits.">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Mesothelioma Compensation Calculator - Free Estimate Tool">
+    <meta property="og:description" content="Estimate your mesothelioma compensation with our free calculator. Get a personalized claim value and connect with top attorneys.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://example.com/mesothelioma-calculator.jpg">
+    <meta property="og:url" content="https://example.com/mesothelioma-calculator">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mesothelioma Compensation Calculator - Free Estimate Tool">
+    <meta name="twitter:description" content="Estimate your mesothelioma compensation with our free calculator. Get a personalized claim value.">
+    <meta name="twitter:image" content="https://example.com/mesothelioma-calculator.jpg">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SVH60RYFLF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SVH60RYFLF');
+    </script>
+    
+    <!-- Schema.org Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Mesothelioma Compensation Calculator",
+      "applicationCategory": "Legal",
+      "description": "Free tool to estimate compensation for mesothelioma claims due to asbestos exposure.",
+      "operatingSystem": "Web"
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the average mesothelioma settlement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The average mesothelioma settlement ranges from $1 million to $2.4 million, though individual cases vary based on factors like exposure history, diagnosis, and jurisdiction."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does a mesothelioma claim take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most mesothelioma claims are resolved within 12-18 months, though some may take longer if they go to trial. Many cases settle out of court."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What factors affect mesothelioma compensation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Key factors include duration of asbestos exposure, type and stage of mesothelioma, age, lost income, medical expenses, and state laws."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #1a6fa3;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --danger: #e74c3c;
+            --success: #27ae60;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #2c3e50, #4a6b8a, #7a9bb8);
+            background-attachment: fixed;
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--primary);
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: #7f8c8d;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .alert {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #f5c6cb;
+        }
+        
+        .calculator-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .calculator {
+            flex: 1 1 700px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .info-panel {
+            flex: 1 1 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .range-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-next {
+            background: var(--success);
+        }
+        
+        .btn-next:hover {
+            background: #219653;
+        }
+        
+        .btn-back {
+            background: #95a5a6;
+        }
+        
+        .btn-back:hover {
+            background: #7f8c8d;
+        }
+        
+        .btn-call {
+            background: #27ae60;
+            margin-top: 15px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: var(--light);
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        
+        .result {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .result-value {
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 1rem 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .result-note {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-card h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+        
+        .factors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .factor {
+            flex: 1 1 200px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .factor i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .badge {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .badge i {
+            color: #e67e22;
+            font-size: 1.5rem;
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .partner-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .partner-logo {
+            height: 60px;
+            width: auto;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .partner-logo:hover {
+            opacity: 1;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .testimonial:before {
+            content: """;
+            font-size: 60px;
+            color: #e67e22;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            opacity: 0.2;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            text-align: right;
+        }
+        
+        .disclaimer-toggle {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .disclaimer-content {
+            display: none;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .disclaimer-content.active {
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            border-radius: 10px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .privacy-link {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .privacy-link:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .netlify-form-success {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #c3e6cb;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .range-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .partner-logos {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-lungs-virus"></i> Mesothelioma Compensation Calculator</h1>
+            <p class="tagline">Estimate potential compensation for asbestos exposure related illnesses and connect with top attorneys</p>
+        </header>
+        
+        <div class="alert">
+            <strong><i class="fas fa-exclamation-triangle"></i> Important:</strong> This service partners with a network of trusted mesothelioma law firms nationwide. If you choose to work with one of our partners, we may receive a referral fee. This helps us keep the service free for patients and families. 
+        </div>
+        
+        <div class="disclaimer-toggle" onclick="toggleDisclaimer()">
+            <span><strong>Legal Disclaimer</strong></span>
+            <span id="disclaimer-icon"><i class="fas fa-chevron-down"></i></span>
+        </div>
+        
+        <div class="disclaimer-content" id="disclaimer-content">
+            <p><strong><i class="fas fa-exclamation-circle"></i> Disclaimer:</strong> This calculator provides only an estimate and should not be considered legal advice. Actual compensation may vary based on your unique circumstances, jurisdiction, liable parties, and legal representation. Many mesothelioma cases result in settlements between $1 million and $2.4 million. We partner with a network of trusted mesothelioma law firms and may receive a referral fee if you choose to work with one of our partners. Information submitted through this form is encrypted and securely transmitted.</p>
+        </div>
+        
+        <!-- Netlify Form Success Message -->
+        <div class="netlify-form-success" id="form-success">
+            <strong><i class="fas fa-check-circle"></i> Thank you!</strong> Your information has been submitted successfully. We'll be in touch shortly to discuss your case.
+        </div>
+        
+        <div class="calculator-container">
+            <!-- Netlify Form Wrapper -->
+            <form name="mesothelioma-compensation" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="calculator" id="netlify-form">
+                <!-- Netlify's bot spam protection -->
+                <p class="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+                
+                <!-- Hidden fields to capture calculated values and UTM parameters -->
+                <input type="hidden" name="estimated-compensation" id="estimated-compensation">
+                <input type="hidden" name="medical-compensation" id="medical-compensation-hidden">
+                <input type="hidden" name="income-compensation" id="income-compensation-hidden">
+                <input type="hidden" name="pain-compensation" id="pain-compensation-hidden">
+                <input type="hidden" name="utm_source" id="utm_source">
+                <input type="hidden" name="utm_campaign" id="utm_campaign">
+                <input type="hidden" name="utm_term" id="utm_term">
+                <input type="hidden" name="gclid" id="gclid">
+                <input type="hidden" name="landing_page" id="landing_page">
+                <input type="hidden" name="user_agent" id="user_agent">
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                
+                <div class="step active" id="step1">
+                    <h2><i class="fas fa-user"></i> Personal & Medical Information</h2>
+                    <div class="form-group">
+                        <label for="age">Age at Diagnosis <span class="required">*</span></label>
+                        <input type="number" id="age" name="age" min="18" max="100" placeholder="Enter your age" required>
+                        <div class="error-message" id="age-error">Please enter a valid age between 18 and 100</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State of Residence <span class="required">*</span></label>
+                        <select id="state" name="state" required>
+                            <option value="">Select your state</option>
+                            <option value="ca">California</option>
+                            <option value="tx">Texas</option>
+                            <option value="fl">Florida</option>
+                            <option value="ny">New York</option>
+                            <option value="il">Illinois</option>
+                            <option value="pa">Pennsylvania</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="error-message" id="state-error">Please select your state</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="diagnosis-type">Type of Mesothelioma</label>
+                        <select id="diagnosis-type" name="diagnosis-type">
+                            <option value="">Select diagnosis type</option>
+                            <option value="pleural">Pleural Mesothelioma</option>
+                            <option value="peritoneal">Peritoneal Mesothelioma</option>
+                            <option value="pericardial">Pericardial Mesothelioma</option>
+                            <option value="testicular">Testicular Mesothelioma</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="diagnosis-stage">Stage at Diagnosis</label>
+                        <select id="diagnosis-stage" name="diagnosis-stage">
+                            <option value="">Select cancer stage</option>
+                            <option value="1">Stage 1</option>
+                            <option value="2">Stage 2</option>
+                            <option value="3">Stage 3</option>
+                            <option value="4">Stage 4</option>
+                        </select>
+                    </div>
+                    <div class="navigation">
+                        <div></div>
+                        <button type="button" class="btn btn-next" onclick="validateStep(1, 2)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="step" id="step2">
+                    <h2><i class="fas fa-briefcase-medical"></i> Exposure History</h2>
+                    <div class="form-group">
+                        <label for="exposure-duration">Years of Asbestos Exposure</label>
+                        <div class="range-container">
+                            <input type="range" id="exposure-duration" name="exposure-duration" min="1" max="40" value="10">
+                            <span class="range-value" id="exposure-duration-value">10</span> years
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exposure-type">Primary Source of Exposure</label>
+                        <select id="exposure-type" name="exposure-type">
+                            <option value="">Select exposure source</option>
+                            <option value="occupational">Occupational (Job-related)</option>
+                            <option value="military">Military Service</option>
+                            <option value="secondary">Secondary Exposure</option>
+                            <option value="environmental">Environmental</option>
+                            <option value="unknown">Unknown</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="industry">Industry/Occupation</label>
+                        <select id="industry" name="industry">
+                            <option value="">Select industry</option>
+                            <option value="construction">Construction</option>
+                            <option value="shipbuilding">Shipbuilding</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="mining">Mining</option>
+                            <option value="automotive">Automotive</option>
+                            <option value="military">Military</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="navigation">
+                        <button type="button" class="btn btn-back" onclick="showStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn-next" onclick="validateStep(2, 3)">Next <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                
+                <div class="step" id="step3">
+                    <h2><i class="fas fa-dollar-sign"></i> Financial Impact</h2>
+                    <div class="form-group">
+                        <label for="medical-costs">Medical Expenses to Date ($)</label>
+                        <input type="number" id="medical-costs" name="medical-costs" min="0" placeholder="Enter total medical costs">
+                    </div>
+                    <div class="form-group">
+                        <label for="future-costs">Estimated Future Medical Costs ($)</label>
+                        <input type="number" id="future-costs" name="future-costs" min="0" placeholder="Enter estimated future costs">
+                    </div>
+                    <div class="form-group">
+                        <label for="lost-income">Lost Income ($)</label>
+                        <input type="number" id="lost-income" name="lost-income" min="0" placeholder="Enter lost income amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="other-costs">Other Expenses ($)</label>
+                        <input type="number" id="other-costs" name="other-costs" min="0" placeholder="Enter other related costs">
+                    </div>
+                    <div class="form-group">
+                        <label for="pain-suffering">Pain and Suffering (1-10 scale)</label>
+                        <div class="range-container">
+                            <input type="range" id="pain-suffering" name="pain-suffering" min="1" max="10" value="5">
+                            <span class="range-value" id="pain-suffering-value">5</span>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <button type="button" class="btn btn-back" onclick="showStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn-next" onclick="calculateCompensation()">Calculate <i class="fas fa-calculator"></i></button>
+                    </div>
+                </div>
+                
+                <div class="step" id="step4">
+                    <div class="result">
+                        <h2><i class="fas fa-file-invoice-dollar"></i> Your Estimated Compensation</h2>
+                        <p>Based on the information you provided:</p>
+                        <div class="result-value" id="compensation-amount">$0</div>
+                        
+                        <div class="chart-container">
+                            <canvas id="compensationChart"></canvas>
+                        </div>
+                        
+                        <div class="factors">
+                            <div class="factor">
+                                <i class="fas fa-hospital"></i>
+                                <h3>Medical Expenses</h3>
+                                <p id="medical-compensation">$0</p>
+                            </div>
+                            <div class="factor">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <h3>Lost Income</h3>
+                                <p id="income-compensation">$0</p>
+                            </div>
+                            <div class="factor">
+                                <i class="fas fa-heartbeat"></i>
+                                <h3>Pain & Suffering</h3>
+                                <p id="pain-compensation">$0</p>
+                            </div>
+                        </div>
+                        
+                        <div class="trust-badges">
+                            <div class="badge">
+                                <i class="fas fa-user-check"></i>
+                                <span>Trusted by 2,000+ Users</span>
+                            </div>
+                            <div class="badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Secure & Confidential</span>
+                            </div>
+                        </div>
+                        
+                        <div class="partner-logos">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI1Ii8+PHRleHQgeD0iNjAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMzMzMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxhd34gRmlybSAjMTwvdGV4dD48L3N2Zz4=" alt="Law Firm 1" class="partner-logo">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw9IiNmNWY1ZjUiIHJ4PSI1Ii8+PHRleHQgeD0iNjAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiMzMzMiIHRleHQtYW5jaG9y=" alt="Law Firm 2" class="partner-logo">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIGZpbGw=" alt="Law Firm 3" class="partner-logo">
+                        </div>
+                        
+                        <div class="testimonial">
+                            <div class="testimonial-text">"This calculator helped me understand what my case might be worth. I was connected with an attorney who secured a $1.8M settlement for my family."</div>
+                            <div class="testimonial-author">- John D., California</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <h3>Connect with Top Mesothelioma Attorneys</h3>
+                            <p>Get a free consultation to discuss your claim with experienced lawyers.</p>
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                            <div class="error-message" id="email-error">Please enter a valid email address</div>
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                            <div class="error-message" id="phone-error">Please enter a valid phone number with area code</div>
+                            <button type="submit" class="btn btn-call">Get Free Consultation <i class="fas fa-phone"></i></button>
+                        </div>
+                        
+                        <div class="navigation">
+                            <button type="button" class="btn btn-back" onclick="showStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn" onclick="resetCalculator()"><i class="fas fa-redo"></i> Start Over</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="info-panel">
+                <h2><i class="fas fa-info-circle"></i> About Mesothelioma Claims</h2>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-balance-scale"></i> Understanding Compensation</h3>
+                    <p>Mesothelioma compensation typically includes economic damages (medical expenses, lost income) and non-economic damages (pain and suffering). The average settlement ranges from $1 million to $2.4 million, though individual cases may vary significantly based on factors like exposure history, diagnosis, and jurisdiction.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-clipboard-list"></i> Factors That Affect Claims</h3>
+                    <ul>
+                        <li>Duration and intensity of asbestos exposure</li>
+                        <li>Type and stage of mesothelioma</li>
+                        <li>Age and overall health</li>
+                        <li>State laws and statutes of limitation</li>
+                        <li>Number of liable companies</li>
+                        <li>Lost income and medical expenses</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-building"></i> Asbestos Trust Funds</h3>
+                    <p>Many companies that manufactured asbestos products have established trust funds to compensate victims. Over $30 billion is available in these trust funds. Your attorney can help you file claims with these trusts in addition to any lawsuit you might pursue.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> Time Limitations</h3>
+                    <p>Each state has different deadlines (statutes of limitation) for filing mesothelioma claims, typically 1-3 years from diagnosis. It's important to consult with an attorney as soon as possible to preserve your legal rights.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-link"></i> Explore More</h3>
+                    <p><a href="/mesothelioma-lawyers" onclick="trackOutboundLink('mesothelioma-lawyers'); return false;">Find Top Mesothelioma Attorneys</a></p>
+                    <p><a href="/asbestos-trust-funds" onclick="trackOutboundLink('asbestos-trust-funds'); return false;">Learn About Asbestos Trust Funds</a></p>
+                    <p><a href="/mesothelioma-treatment" onclick="trackOutboundLink('mesothelioma-treatment'); return false;">Mesothelioma Treatment Options</a></p>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+                    <p><strong>What is the average mesothelioma settlement?</strong><br>
+                    The average mesothelioma settlement ranges from $1 million to $2.4 million, though individual cases vary based on factors like exposure history, diagnosis, and jurisdiction.</p>
+                    
+                    <p><strong>How long does a mesothelioma claim take?</strong><br>
+                    Most mesothelioma claims are resolved within 12-18 months, though some may take longer if they go to trial. Many cases settle out of court.</p>
+                    
+                    <p><strong>What factors affect mesothelioma compensation?</strong><br>
+                    Key factors include duration of asbestos exposure, type and stage of mesothelioma, age, lost income, medical expenses, and state laws.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 MesotheliomaCompensationCalculator.com | 
+                <a href="https://mesotheliomacompensationcalculator.com/privacy-policy/">Privacy Policy</a> | 
+                <a href="https://mesotheliomacompensationcalculator.com/disclaimer/">Disclaimer</a> | 
+                <a href="https://mesotheliomacompensationcalculator.com/terms-of-service/">Terms of Service</a> | 
+                <a href="https://mesotheliomacompensationcalculator.com/contact/">Contact</a>
+            </p>
+            <p><strong>Attorney Advertising:</strong> This website is a lawyer referral service. We are not a law firm. We are independently owned and operated. We may receive compensation from participating law firms for referrals. <a href="/disclaimer/">Click here for full disclaimer</a>.</p>
+            <p>Mesothelioma is a rare and aggressive cancer caused by exposure to asbestos.</p>
+        </footer>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+        let utmData = {};
+        
+        // Initialize slider values
+        document.getElementById('exposure-duration-value').textContent = document.getElementById('exposure-duration').value;
+        document.getElementById('pain-suffering-value').textContent = document.getElementById('pain-suffering').value;
+        
+        // Capture UTM parameters
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            utmData = {
+                utm_source: urlParams.get('utm_source') || '',
+                utm_campaign: urlParams.get('utm_campaign') || '',
+                utm_term: urlParams.get('utm_term') || '',
+                gclid: urlParams.get('gclid') || '',
+                timestamp: new Date().toISOString(),
+                user_agent: navigator.userAgent,
+                landing_page: window.location.href
+            };
+            
+            // Set hidden field values
+            document.getElementById('utm_source').value = utmData.utm_source;
+            document.getElementById('utm_campaign').value = utmData.utm_campaign;
+            document.getElementById('utm_term').value = utmData.utm_term;
+            document.getElementById('gclid').value = utmData.gclid;
+            document.getElementById('landing_page').value = utmData.landing_page;
+            document.getElementById('user_agent').value = utmData.user_agent;
+            
+            // Track pageview (for GTM)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'page_view', {
+                    page_title: 'Mesothelioma Compensation Calculator',
+                    page_location: window.location.href
+                });
+            }
+            
+            // Check if form was submitted (Netlify adds query parameter on success)
+            const urlParamsCheck = new URLSearchParams(window.location.search);
+            if (urlParamsCheck.get('submitted') === 'true') {
+                document.getElementById('form-success').style.display = 'block';
+                document.getElementById('netlify-form').style.display = 'none';
+            }
+        });
+        
+        function toggleDisclaimer() {
+            const content = document.getElementById('disclaimer-content');
+            const icon = document.getElementById('disclaimer-icon');
+            
+            content.classList.toggle('active');
+            if (content.classList.contains('active')) {
+                icon.innerHTML = '<i class="fas fa-chevron-up"></i>';
+            } else {
+                icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            }
+        }
+        
+        function showStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            document.getElementById(`step${stepNumber}`).classList.add('active');
+            
+            // Update progress bar
+            const progressPercentage = ((stepNumber - 1) / (totalSteps - 1)) * 100;
+            document.getElementById('progress').style.width = `${progressPercentage}%`;
+            
+            currentStep = stepNumber;
+            
+            // Track step progress (for GTM)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'calculator_step', {
+                    event_category: 'Engagement',
+                    event_label: `Step ${stepNumber}`,
+                    value: stepNumber
+                });
+            }
+            
+            // Scroll to top of calculator
+            document.querySelector('.calculator').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function validateStep(current, next) {
+            // Validate required fields
+            if (current === 1) {
+                const age = document.getElementById('age');
+                const state = document.getElementById('state');
+                let isValid = true;
+                
+                // Reset error messages
+                document.getElementById('age-error').style.display = 'none';
+                document.getElementById('state-error').style.display = 'none';
+                
+                if (!age.value || age.value < 18 || age.value > 100) {
+                    document.getElementById('age-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!state.value) {
+                    document.getElementById('state-error').style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    // Scroll to first error
+                    document.querySelector('.error-message[style="display: block"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+            }
+            
+            showStep(next);
+        }
+        
+        function calculateCompensation() {
+            // Get values from form
+            const age = parseInt(document.getElementById('age').value) || 65;
+            const exposureDuration = parseInt(document.getElementById('exposure-duration').value) || 10;
+            const medicalCosts = parseInt(document.getElementById('medical-costs').value) || 0;
+            const futureCosts = parseInt(document.getElementById('future-costs').value) || 0;
+            const lostIncome = parseInt(document.getElementById('lost-income').value) || 0;
+            const otherCosts = parseInt(document.getElementById('other-costs').value) || 0;
+            const painSuffering = parseInt(document.getElementById('pain-suffering').value) || 5;
+            const diagnosisStage = document.getElementById('diagnosis-stage').value;
+            const diagnosisType = document.getElementById('diagnosis-type').value;
+            
+            // Calculate base economic damages
+            const totalMedical = medicalCosts + futureCosts;
+            const economicDamages = totalMedical + lostIncome + otherCosts;
+            
+            // Calculate non-economic damages multiplier based on various factors
+            let multiplier = 1;
+            
+            // Age multiplier (younger patients typically get higher compensation)
+            if (age < 50) multiplier *= 2;
+            else if (age < 65) multiplier *= 1.5;
+            
+            // Exposure duration multiplier
+            multiplier *= Math.min(3, 1 + (exposureDuration / 20));
+            
+            // Diagnosis stage multiplier
+            if (diagnosisStage === "4") multiplier *= 3;
+            else if (diagnosisStage === "3") multiplier *= 2.5;
+            else if (diagnosisStage === "2") multiplier *= 2;
+            else if (diagnosisStage === "1") multiplier *= 1.5;
+            
+            // Diagnosis type multiplier
+            if (diagnosisType === "pericardial") multiplier *= 1.8;
+            else if (diagnosisType === "peritoneal") multiplier *= 1.5;
+            else if (diagnosisType === "pleural") multiplier *= 1.2;
+            
+            // Calculate non-economic damages
+            const nonEconomicDamages = economicDamages * multiplier * (painSuffering / 5);
+            
+            // Calculate total compensation
+            let totalCompensation = economicDamages + nonEconomicDamages;
+            
+            // Ensure reasonable ranges (mesothelioma cases typically have high values)
+            totalCompensation = Math.max(250000, totalCompensation);
+            totalCompensation = Math.min(5000000, totalCompensation);
+            
+            // Format and display result
+            const formattedAmount = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(totalCompensation);
+            
+            const medicalComp = totalMedical * 1.2;
+            const incomeComp = lostIncome * 1.5;
+            
+            const medicalFormatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(medicalComp);
+            
+            const incomeFormatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(incomeComp);
+            
+            const painFormatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(nonEconomicDamages);
+            
+            document.getElementById('compensation-amount').textContent = formattedAmount;
+            document.getElementById('medical-compensation').textContent = medicalFormatted;
+            document.getElementById('income-compensation').textContent = incomeFormatted;
+            document.getElementById('pain-compensation').textContent = painFormatted;
+            
+            // Set hidden field values for form submission
+            document.getElementById('estimated-compensation').value = formattedAmount;
+            document.getElementById('medical-compensation-hidden').value = medicalComp;
+            document.getElementById('income-compensation-hidden').value = incomeComp;
+            document.getElementById('pain-compensation-hidden').value = nonEconomicDamages;
+            
+            // Render chart
+            renderChart(medicalComp, incomeComp, nonEconomicDamages);
+            
+            showStep(4);
+            
+            // Track calculation completion (for GTM)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'calculation_complete', {
+                    event_category: 'Engagement',
+                    event_label: 'Compensation Calculated',
+                    value: totalCompensation
+                });
+            }
+        }
+        
+        function renderChart(medical, income, pain) {
+            const ctx = document.getElementById('compensationChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Medical Expenses', 'Lost Income', 'Pain & Suffering'],
+                    datasets: [{
+                        data: [medical, income, pain],
+                        backgroundColor: ['#3498db', '#e67e22', '#27ae60'],
+                        borderColor: ['#2c3e50', '#2c3e50', '#2c3e50'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top', labels: { color: '#2c3e50' } },
+                        title: { display: true, text: 'Compensation Breakdown', color: '#2c3e50' }
+                    }
+                }
+            });
+        }
+        
+        function validateForm(email, phone) {
+            let isValid = true;
+            
+            // Reset error messages
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('phone-error').style.display = 'none';
+            
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (phone && phone.replace(/\D/g, '').length < 10) {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                // Scroll to first error
+                document.querySelector('.error-message[style="display: block"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            return isValid;
+        }
+        
+        function trackOutboundLink(linkType) {
+            // Track outbound link click (for GTM)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'outbound_click', {
+                    event_category: 'Engagement',
+                    event_label: linkType
+                });
+            }
+        }
+        
+        function resetCalculator() {
+            // Reset all form fields
+            document.getElementById('age').value = '';
+            document.getElementById('state').value = '';
+            document.getElementById('exposure-duration').value = '10';
+            document.getElementById('exposure-duration-value').textContent = '10';
+            document.getElementById('exposure-type').value = '';
+            document.getElementById('industry').value = '';
+            document.getElementById('diagnosis-type').value = '';
+            document.getElementById('diagnosis-stage').value = '';
+            document.getElementById('medical-costs').value = '';
+            document.getElementById('future-costs').value = '';
+            document.getElementById('lost-income').value = '';
+            document.getElementById('other-costs').value = '';
+            document.getElementById('pain-suffering').value = '5';
+            document.getElementById('pain-suffering-value').textContent = '5';
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            
+            // Hide error messages
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Return to first step
+            showStep(1);
+        }
+        
+        // Initialize slider value displays
+        document.getElementById('exposure-duration').addEventListener('input', function() {
+            document.getElementById('exposure-duration-value').textContent = this.value;
+        });
+        
+        document.getElementById('pain-suffering').addEventListener('input', function() {
+            document.getElementById('pain-suffering-value').textContent = this.value;
+        });
+        
+        // Handle form submission
+        document.getElementById('netlify-form').addEventListener('submit', function(e) {
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            if (!validateForm(email, phone)) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Track lead submission (for GTM)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'lead_submission', {
+                    event_category: 'Conversion',
+                    event_label: 'Mesothelioma Lead',
+                    value: 1
+                });
+            }
+        });
+    </script>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+</body>
+</html>
