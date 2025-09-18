@@ -501,6 +501,24 @@
             display: none;
         }
         
+        .teaser-estimate {
+            background-color: #e8f4fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .teaser-estimate h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .full-details {
+            display: none;
+        }
+        
         @media (max-width: 768px) {
             .calculator-container {
                 flex-direction: column;
@@ -616,8 +634,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exposure-type">Primary Source of Exposure</label>
-                        <select id="exposure-type" name="exposure-type">
+                        <label for="exposure-type">Primary Source of Exposure <span class="required">*</span></label>
+                        <select id="exposure-type" name="exposure-type" required>
                             <option value="">Select exposure source</option>
                             <option value="occupational">Occupational (Job-related)</option>
                             <option value="military">Military Service</option>
@@ -625,6 +643,7 @@
                             <option value="environmental">Environmental</option>
                             <option value="unknown">Unknown</option>
                         </select>
+                        <div class="error-message" id="exposure-type-error">Please select your primary source of exposure</div>
                     </div>
                     <div class="form-group">
                         <label for="industry">Industry/Occupation</label>
@@ -636,7 +655,7 @@
                             <option value="mining">Mining</option>
                             <option value="automotive">Automotive</option>
                             <option value="military">Military</option>
-                            <option value="other">Other</option>
+                            <option value="other-unknown">Other/Unknown</option>
                         </select>
                     </div>
                     <div class="navigation">
@@ -672,77 +691,88 @@
                     </div>
                     <div class="navigation">
                         <button type="button" class="btn btn-back" onclick="showStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
-                        <button type="button" class="btn btn-next" onclick="calculateCompensation()">Calculate <i class="fas fa-calculator"></i></button>
+                        <button type="button" class="btn btn-next" onclick="validateStep(3, 4)">Calculate <i class="fas fa-calculator"></i></button>
                     </div>
                 </div>
                 
                 <div class="step" id="step4">
                     <div class="result">
                         <h2><i class="fas fa-file-invoice-dollar"></i> Your Estimated Compensation</h2>
-                        <p>Based on the information you provided:</p>
-                        <div class="result-value" id="compensation-amount">$0</div>
                         
-                        <div class="chart-container">
-                            <canvas id="compensationChart"></canvas>
-                        </div>
-                        
-                        <div class="factors">
-                            <div class="factor">
-                                <i class="fas fa-hospital"></i>
-                                <h3>Medical Expenses</h3>
-                                <p id="medical-compensation">$0</p>
-                            </div>
-                            <div class="factor">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <h3>Lost Income</h3>
-                                <p id="income-compensation">$0</p>
-                            </div>
-                            <div class="factor">
-                                <i class="fas fa-heartbeat"></i>
-                                <h3>Pain & Suffering</h3>
-                                <p id="pain-compensation">$0</p>
+                        <!-- Teaser Estimate -->
+                        <div class="teaser-estimate" id="teaser-estimate">
+                            <h3>Based on the information you provided:</h3>
+                            <div class="result-value" id="compensation-range">$1.2M - $2.8M</div>
+                            <p class="result-note">To see your detailed compensation breakdown and connect with top attorneys, please provide your contact information below.</p>
+                            
+                            <div class="form-group">
+                                <h3>Connect with Top Mesothelioma Attorneys</h3>
+                                <p>Get a free consultation to discuss your claim with experienced lawyers.</p>
+                                <label for="name">Name <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                                <div class="error-message" id="name-error">Please enter your name</div>
+                                <label for="email">Email Address <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                                <div class="error-message" id="email-error">Please enter a valid email address</div>
+                                <label for="phone">Phone Number <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                                <div class="error-message" id="phone-error">Please enter a valid phone number with area code</div>
+                                <button type="button" class="btn btn-call" onclick="submitContactInfo()">View Full Results <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                         
-                        <div class="trust-badges">
-                            <div class="badge">
-                                <i class="fas fa-user-check"></i>
-                                <span>Trusted by 2,000+ Users</span>
+                        <!-- Full Details (initially hidden) -->
+                        <div class="full-details" id="full-details">
+                            <div class="result-value" id="compensation-amount">$0</div>
+                            
+                            <div class="chart-container">
+                                <canvas id="compensationChart"></canvas>
                             </div>
-                            <div class="badge">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Secure & Confidential</span>
+                            
+                            <div class="factors">
+                                <div class="factor">
+                                    <i class="fas fa-hospital"></i>
+                                    <h3>Medical Expenses</h3>
+                                    <p id="medical-compensation">$0</p>
+                                </div>
+                                <div class="factor">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                    <h3>Lost Income</h3>
+                                    <p id="income-compensation">$0</p>
+                                </div>
+                                <div class="factor">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <h3>Pain & Suffering</h3>
+                                    <p id="pain-compensation">$0</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="partner-logos">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 1" class="partner-logo">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 2" class="partner-logo">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 3" class="partner-logo">
-                        </div>
-                        
-                        <div class="testimonial">
-                            <div class="testimonial-text">"This calculator helped me understand what my case might be worth. I was connected with an attorney who secured a $1.8M settlement for my family."</div>
-                            <div class="testimonial-author">- John D., California</div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <h3>Connect with Top Mesothelioma Attorneys</h3>
-                            <p>Get a free consultation to discuss your claim with experienced lawyers.</p>
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your name">
-                            <label for="email">Email Address <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                            <div class="error-message" id="email-error">Please enter a valid email address</div>
-                            <label for="phone">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-                            <div class="error-message" id="phone-error">Please enter a valid phone number with area code</div>
-                            <button type="submit" class="btn btn-call">Get Free Consultation <i class="fas fa-phone"></i></button>
-                        </div>
-                        
-                        <div class="navigation">
-                            <button type="button" class="btn btn-back" onclick="showStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn" onclick="resetCalculator()"><i class="fas fa-redo"></i> Start Over</button>
+                            
+                            <div class="trust-badges">
+                                <div class="badge">
+                                    <i class="fas fa-user-check"></i>
+                                    <span>Trusted by 2,000+ Users</span>
+                                </div>
+                                <div class="badge">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Secure & Confidential</span>
+                                </div>
+                            </div>
+                            
+                            <div class="partner-logos">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 1" class="partner-logo">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCAxMjAgNjAiPjxyZWN0IHdpZHRo=" alt="Law Firm 2" class="partner-logo">
+                                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRo=" alt="Law Firm 3" class="partner-logo">
+                            </div>
+                            
+                            <div class="testimonial">
+                                <div class="testimonial-text">"This calculator helped me understand what my case might be worth. I was connected with an attorney who secured a $1.8M settlement for my family."</div>
+                                <div class="testimonial-author">- John D., California</div>
+                            </div>
+                            
+                            <div class="navigation">
+                                <button type="button" class="btn btn-back" onclick="showStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+                                <button type="button" class="btn" onclick="resetCalculator()"><i class="fas fa-redo"></i> Start Over</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -815,6 +845,7 @@
         let currentStep = 1;
         const totalSteps = 4;
         let utmData = {};
+        let calculatedCompensation = 0;
         
         // Initialize slider values
         document.getElementById('exposure-duration-value').textContent = document.getElementById('exposure-duration').value;
@@ -881,15 +912,17 @@
         }
         
         function validateStep(current, next) {
-            // Validate required fields
+            let isValid = true;
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Step 1 validation
             if (current === 1) {
                 const age = document.getElementById('age');
                 const state = document.getElementById('state');
-                let isValid = true;
-                
-                // Reset error messages
-                document.getElementById('age-error').style.display = 'none';
-                document.getElementById('state-error').style.display = 'none';
                 
                 if (!age.value || age.value < 18 || age.value > 100) {
                     document.getElementById('age-error').style.display = 'block';
@@ -900,15 +933,30 @@
                     document.getElementById('state-error').style.display = 'block';
                     isValid = false;
                 }
+            }
+            
+            // Step 2 validation
+            if (current === 2) {
+                const exposureType = document.getElementById('exposure-type');
                 
-                if (!isValid) {
-                    // Scroll to first error
-                    document.querySelector('.error-message[style="display: block"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return;
+                if (!exposureType.value) {
+                    document.getElementById('exposure-type-error').style.display = 'block';
+                    isValid = false;
                 }
             }
             
-            showStep(next);
+            if (!isValid) {
+                // Scroll to first error
+                document.querySelector('.error-message[style="display: block"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            
+            // If moving to step 4, calculate the compensation first
+            if (next === 4) {
+                calculateCompensation();
+            } else {
+                showStep(next);
+            }
         }
         
         function calculateCompensation() {
@@ -952,21 +1000,95 @@
             const nonEconomicDamages = economicDamages * multiplier * (painSuffering / 5);
             
             // Calculate total compensation
-            let totalCompensation = economicDamages + nonEconomicDamages;
+            calculatedCompensation = economicDamages + nonEconomicDamages;
             
             // Ensure reasonable ranges (mesothelioma cases typically have high values)
-            totalCompensation = Math.max(250000, totalCompensation);
-            totalCompensation = Math.min(5000000, totalCompensation);
+            calculatedCompensation = Math.max(250000, calculatedCompensation);
+            calculatedCompensation = Math.min(5000000, calculatedCompensation);
             
-            // Format and display result
+            // Calculate range for teaser (70% to 130% of calculated value)
+            const minRange = Math.round(calculatedCompensation * 0.7 / 100000) * 100000;
+            const maxRange = Math.round(calculatedCompensation * 1.3 / 100000) * 100000;
+            
+            // Format and display teaser result
+            const minFormatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(minRange);
+            
+            const maxFormatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(maxRange);
+            
+            document.getElementById('compensation-range').textContent = `${minFormatted} - ${maxFormatted}`;
+            
+            // Show step 4 with teaser
+            showStep(4);
+            
+            // Track calculation completion (for GTM)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'calculation_complete', {
+                    event_category: 'Engagement',
+                    event_label: 'Compensation Calculated',
+                    value: calculatedCompensation
+                });
+            }
+        }
+        
+        function submitContactInfo() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            
+            let isValid = true;
+            
+            // Reset error messages
+            document.getElementById('name-error').style.display = 'none';
+            document.getElementById('email-error').style.display = 'none';
+            document.getElementById('phone-error').style.display = 'none';
+            
+            // Validate name
+            if (!name) {
+                document.getElementById('name-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate email
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById('email-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validate phone
+            if (!phone || phone.replace(/\D/g, '').length < 10) {
+                document.getElementById('phone-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                // Scroll to first error
+                document.querySelector('.error-message[style="display: block"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+            
+            // If validation passes, show full details
+            showFullDetails();
+        }
+        
+        function showFullDetails() {
+            // Format and display full result
             const formattedAmount = new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',
                 maximumFractionDigits: 0
-            }).format(totalCompensation);
+            }).format(calculatedCompensation);
             
-            const medicalComp = totalMedical * 1.2;
-            const incomeComp = lostIncome * 1.5;
+            const medicalComp = (parseInt(document.getElementById('medical-costs').value) || 0) + 
+                               (parseInt(document.getElementById('future-costs').value) || 0);
+            const incomeComp = (parseInt(document.getElementById('lost-income').value) || 0) * 1.5;
             
             const medicalFormatted = new Intl.NumberFormat('en-US', {
                 style: 'currency',
@@ -984,7 +1106,7 @@
                 style: 'currency',
                 currency: 'USD',
                 maximumFractionDigits: 0
-            }).format(nonEconomicDamages);
+            }).format(calculatedCompensation - medicalComp - incomeComp);
             
             document.getElementById('compensation-amount').textContent = formattedAmount;
             document.getElementById('medical-compensation').textContent = medicalFormatted;
@@ -992,16 +1114,17 @@
             document.getElementById('pain-compensation').textContent = painFormatted;
             
             // Render chart
-            renderChart(medicalComp, incomeComp, nonEconomicDamages);
+            renderChart(medicalComp, incomeComp, calculatedCompensation - medicalComp - incomeComp);
             
-            showStep(4);
+            // Hide teaser and show full details
+            document.getElementById('teaser-estimate').style.display = 'none';
+            document.getElementById('full-details').style.display = 'block';
             
-            // Track calculation completion (for GTM)
+            // Track contact info submission (for GTM)
             if (typeof gtag !== 'undefined') {
-                gtag('event', 'calculation_complete', {
+                gtag('event', 'contact_info_submitted', {
                     event_category: 'Engagement',
-                    event_label: 'Compensation Calculated',
-                    value: totalCompensation
+                    event_label: 'Contact Info Submitted'
                 });
             }
         }
@@ -1027,31 +1150,6 @@
                     }
                 }
             });
-        }
-        
-        function validateForm(email, phone) {
-            let isValid = true;
-            
-            // Reset error messages
-            document.getElementById('email-error').style.display = 'none';
-            document.getElementById('phone-error').style.display = 'none';
-            
-            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                document.getElementById('email-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (phone && phone.replace(/\D/g, '').length < 10) {
-                document.getElementById('phone-error').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (!isValid) {
-                // Scroll to first error
-                document.querySelector('.error-message[style="display: block"]').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-            
-            return isValid;
         }
         
         function trackOutboundLink(linkType) {
@@ -1089,6 +1187,10 @@
                 el.style.display = 'none';
             });
             
+            // Reset display states
+            document.getElementById('teaser-estimate').style.display = 'block';
+            document.getElementById('full-details').style.display = 'none';
+            
             // Return to first step
             showStep(1);
         }
@@ -1104,14 +1206,7 @@
         
         // Handle form submission
         document.getElementById('formspree-form').addEventListener('submit', function(e) {
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            
-            if (!validateForm(email, phone)) {
-                e.preventDefault();
-                return;
-            }
-            
+            // This will be handled by Formspree
             // Track lead submission (for GTM)
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'lead_submission', {
